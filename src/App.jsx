@@ -5,7 +5,7 @@ import Income from "./pages/Income";
 import Expense from "./pages/Expense";
 import Category from "./pages/Category";
 import Filter from "./pages/Filter";
-import Login from "./pages/login";
+import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { Toaster } from "react-hot-toast";
 
