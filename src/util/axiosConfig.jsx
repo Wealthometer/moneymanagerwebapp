@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosConfig = axios.create({
-  baseURL: "http://localhost:8181/api/v1.0",
+  baseURL: "https://moneymanger-backend.onrender.com/api/v1.0",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
