@@ -1,7 +1,16 @@
-const Login = () => {
-  return( 
-  <div className="text-3xl font-bold underline"> Login Page </div>
-  )
-}
+import { assets } from "../assets/assets";
 
-export default Login
+const Login = () => {
+  return (
+    <div className="h-screen w-full relative flex items-center justify-center overflow-hidden">
+      {/* Background  Image with blur */}
+      <img
+        src={assets.login_bg}
+        alt="Backgroung-Img"
+        className="absolute inset-0 w-full h-full object-cover filter blur-sm"
+      />
+    </div>
+  );
+};
+
+export default Login;
