@@ -55,7 +55,9 @@ const Signup = () => {
       }
     } catch (err) {
       console.log("Something went wrong", err);
-      setError(error.message);
+      toast.error("Signup Failed. Please try again");
+      const error = err.response?.data || { message: "Signup Failed" };
+      setError(err.message);
     } finally {
       setIsLoading(false);
     }
