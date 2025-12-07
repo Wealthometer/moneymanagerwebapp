@@ -2,14 +2,64 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 import Input from "../components/Input";
+import { validateEmail } from "../util/validation";
+import axiosConfig from "../util/axiosConfig";
+import { API_ENDPOINTS } from "../util/apiEndpoints";
+import toast from "react-hot-toast";
+import { LoaderCircle } from "lucide-react";
 
 const Signup = () => {
   const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    //basic Validation
+    if (!fullname.trim()) {
+      setError("Please Enter Your FullName");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setError("Please Enter A Valid Email");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!password.trim()) {
+      setError( "Please Enter Your Password");
+      return;
+    }
+
+    console.log(fullname, email, password);
+
+    setError("");
+
+    //signup api call
+    try {
+      const response = await axiosConfig.post(API_ENDPOINTS.REGISTER, {
+        fullname,
+        email,
+        password,
+      });
+      if (response.status === 201) {
+        toast.success("Profile Craeted Succesfully");
+        navigate("/login");
+      }
+    } catch (err) {
+      console.log("Something went wrong", err);
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="h-screen w-full relative flex items-center justify-center overflow-hidden">
@@ -30,7 +80,7 @@ const Signup = () => {
             Start tracking your spending by joining with us
           </p>
 
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="flex justify-center mb-6">
               {/* Profile Image */}
             </div>
@@ -59,17 +109,29 @@ const Signup = () => {
                 />
 
                 <div>
-                  {error && (
-                    <p className="text-red-800 text-sm text-center bg-red-100 p-2 rounded">
-                      {error}
-                    </p>
-                  )}
+                  <div className="my-2.5">
+                    {error && (
+                      <p className="text-red-800 text-sm text-center bg-red-100 p-2 rounded">
+                        {error}
+                      </p>
+                    )}
+                  </div>
 
                   <button
-                    className="rounded-md bg-indigo-800 w-full py-3 text-lg font-medium text-white hover:bg-indigo-900 transition duration-300"
+                    disabled={isLoading}
+                    className={`btn-primary bg-indigo-800 rounded-md w-full py-3 text-lg font-medium flex justify-center items-center gap-2 ${
+                      isLoading ? "opacity-60 cursor-not-allowed" : ""
+                    }`}
                     type="submit"
                   >
-                    SIGN UP
+                    {isLoading ? (
+                      <>
+                        <LoaderCircle className="animate-spin w-5 h-5" />
+                        Signing Up...
+                      </>
+                    ) : (
+                      "SIGN UP"
+                    )}
                   </button>
                   <p className="text-sm text-slate-800 text-center mt-6 gap-2 flex justify-center items-center">
                     Already have an account?
