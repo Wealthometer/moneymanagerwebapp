@@ -1,6 +1,6 @@
-import { createContext, useState } from "react";
+import { useState } from "react";
+import { AppContext } from "./AppContext";
 
-const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
 
