@@ -16,12 +16,14 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
     }
   };
 
-  const handleRemoveImage = () => {
+  const handleRemoveImage = (e) => {
+    e.preventDefault();
     setImage(null);
     setPreviewUrl(null);
   };
 
-  const onChooseFile = () => {
+  const onChooseFile = (e) => {
+    e.preventDefault();
     inputRef.current?.click();
   };
 
@@ -41,6 +43,7 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
           <button
             onClick={onChooseFile}
             className="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full absolute -bottom-1 -right-1"
+            type="button"
           >
             <Upload size={15} className="text-purple-800" />
           </button>
@@ -48,7 +51,7 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
       ) : (
         <div className="relative">
             <img src={previewUrl} alt="profile photo" className="w-20 h-20 rounded-full object-cover" />
-            <button  onClick={handleRemoveImage} className="w-8 h-8 flex items-center justify-center bg-red-800 text-white rounded-full absolute -bottom-1 -right-1" >
+            <button  onClick={handleRemoveImage} className="w-8 h-8 flex items-center justify-center bg-red-800 text-white rounded-full absolute -bottom-1 -right-1" type="button" >
                 <Trash size={15} />
             </button>
         </div>
