@@ -22,7 +22,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let profileUrl = "";
+    let profileImageUrl = "";
     setIsLoading(true);
 
     //basic Validation
