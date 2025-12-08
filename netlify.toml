@@ -1,0 +1,126 @@
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+# [[headers]]
+#   for = "/*"
+#     [headers.values]
+#         Access-Control-Allow-Origin = "*"
+#         Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+#         Access-Control-Allow-Headers = "Content-Type, Authorization"
+# [[plugins]]
+#   package = "@netlify/plugin-sitemap"
+#     [plugins.inputs]
+#         changefreq = "weekly"
+#         priority = 0.5
+# [[plugins]]
+#   package = "netlify-plugin-gatsby-cache"
+#     [plugins.inputs]
+#         paths = ["public/static/**", "public/page-data/**", "public/app-data.json"]
+#         cachePublic = true
+# [[plugins]]
+#   package = "netlify-plugin-inline-functions-env"
+#     [plugins.inputs]
+#         env = ["API_URL", "ANALYTICS_KEY"]
+# [[plugins]]
+#   package = "netlify-plugin-compress"
+#     [plugins.inputs]
+#         include = ["**/*.html", "**/*.css", "**/*.js"]
+#         exclude = ["**/*.png", "**/*.jpg", "**/*.jpeg", "**/*.gif", "**/*.svg"]
+#         algorithms = ["gzip", "brotli"]
+# [[plugins]]
+#   package = "netlify-plugin-lighthouse"
+#     [plugins.inputs]
+#         thresholds = { performance = 90, accessibility = 90, best-practices = 90, seo = 90, pwa = 50 }
+#         urls = ["/", "/about", "/contact"]
+#         runs = 3
+#         output = "html"
+#         saveReports = true
+# [[plugins]]
+#   package = "netlify-plugin-function-logger"
+#     [plugins.inputs]
+#         logLevel = "info"
+#         functions = ["*"]
+# [[plugins]]
+#   package = "netlify-plugin-cache-nextjs"
+#     [plugins.inputs]
+#         paths = [".next/cache/**", "node_modules/**"]
+#         cachePublic = true
+# [[plugins]]
+#   package = "netlify-plugin-optimize-images"
+#     [plugins.inputs]
+#         include = ["**/*.png", "**/*.jpg", "**/*.jpeg", "**/*.gif", "**/*.svg"]
+#         quality = 80
+#         stripMetadata = true
+#         resize = { width = 1920, height = 1080 }
+#         formats = ["webp", "avif"]
+# [[plugins]]
+#   package = "netlify-plugin-security-headers"
+#     [plugins.inputs]
+#         headers = { "/**" = [ "Strict-Transport-Security: max-age=63072000; includeSubDomains; preload", "X-Content-Type-Options: nosniff", "X-Frame-Options: DENY", "Referrer-Policy: no-referrer-when-downgrade", "Permissions-Policy: geolocation=(), microphone=()" ] }
+# [[plugins]]
+#   package = "netlify-plugin-robots-txt"
+#     [plugins.inputs]
+#         policy = [ { userAgent = "*", allow = "/" } ]
+#         sitemap = "/sitemap.xml"
+#         host = "https://www.yourdomain.com"
+# [[plugins]]
+#   package = "netlify-plugin-web-vitals"
+#     [plugins.inputs]
+#         threshold = 3000
+#         notifyEmail = "wealthhajoh87@gmail.com"
+#         notifySlack = "#web-vitals"
+# [[plugins]]
+#   package = "netlify-plugin-environment-variables"
+#     [plugins.inputs]
+#         variables = ["API_URL", "ANALYTICS_KEY", "OTHER_ENV_VAR"]
+# [[plugins]]
+#   package = "netlify-plugin-precompress"
+#     [plugins.inputs]
+#         include = ["**/*.html", "**/*.css", "**/*.js"]
+#         algorithms = ["gzip", "brotli"]
+# [[plugins]]
+#   package = "netlify-plugin-performance-budget"
+#     [plugins.inputs]
+#         budgets = [ { resourceType = "script", limit = 300 }, { resourceType = "image", limit = 500 } ]
+# [[plugins]]
+#   package = "netlify-plugin-accessibility-checker"
+#     [plugins.inputs]
+#         urls = ["/", "/about", "/contact"]
+#         standards = ["WCAG2AA", "Section508"]
+#         notifyEmail = ""
+#         notifySlack = "#accessibility-reports"
+# [[plugins]]
+#   package = "netlify-plugin-git-metadata"
+#     [plugins.inputs]
+#         includeCommitMessage = true
+#         includeBranchName = true
+#         includeAuthorName = true
+#         includeCommitHash = true
+# [[plugins]]
+#   package = "netlify-plugin-image-optimization"
+#     [plugins.inputs]
+#         quality = 80
+#         formats = ["webp", "avif"]
+#         resize = { width = 1920, height = 1080 }
+#         stripMetadata = true
+# [[plugins]]
+#   package = "netlify-plugin-function-optimization"
+#     [plugins.inputs]
+#         minify = true
+#         bundle = true
+#         treeShake = true
+# [[plugins]]
+#   package = "netlify-plugin-advanced-headers"
+#     [plugins.inputs]
+#         headers = { "/**" = [ "Cache-Control: public, max-age=31536000, immutable", "Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'none';" ] }
+# [[plugins]]
+#   package = "netlify-plugin-seo-checker"
+#     [plugins.inputs]
+#         urls = ["/", "/about", "/contact"]
+#         notifyEmail = ""
+#         notifySlack = "#seo-reports"
+# File: src/pages/Signup.jsx
+# --- a/file:///c%3A/Users/USER/Documents/moneymanagerwebapp/src/pages/Signup.jsx
+# +++ b/file:///c%3A/Users/USER/Documents/moneymanagerwebapp/src/pages/Signup.jsx
+# @@ -14,6 +14,7 @@
