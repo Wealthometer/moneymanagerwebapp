@@ -8,6 +8,7 @@ import { API_ENDPOINTS } from "../util/apiEndpoints";
 import toast from "react-hot-toast";
 import { LoaderCircle } from "lucide-react";
 import ProfilePhotoSelector from "../components/ProfilePhotoSelector";
+import uploadProfileImage from "../util/uploadProfileImage";
 
 const Signup = () => {
   const [fullname, setFullName] = useState("");
@@ -21,6 +22,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let profileUrl = "";
     setIsLoading(true);
 
     //basic Validation
@@ -36,7 +38,7 @@ const Signup = () => {
     }
 
     if (!password.trim()) {
-      setError( "Please Enter Your Password");
+      setError("Please Enter Your Password");
       return;
     }
 
@@ -46,10 +48,15 @@ const Signup = () => {
 
     //signup api call
     try {
+      if (profilePhoto) {
+        const imageUrl = await uploadProfileImage(profilePhoto);
+        profileImageUrl = imageUrl || "";
+      }
       const response = await axiosConfig.post(API_ENDPOINTS.REGISTER, {
         fullname,
         email,
         password,
+        profileImageUrl
       });
       if (response.status === 201) {
         toast.success("Profile Craeted Succesfully");
@@ -60,7 +67,7 @@ const Signup = () => {
       toast.error("Signup Failed. Please try again");
       const error = err.response?.data || { message: "Signup Failed" };
       setError(err.message);
-      console.log(error)
+      console.log(error);
     } finally {
       setIsLoading(false);
     }
@@ -88,7 +95,10 @@ const Signup = () => {
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="flex justify-center mb-6">
               {/* Profile Image */}
-              <ProfilePhotoSelector image={profilePhoto} setImage={setProfilePhoto} />
+              <ProfilePhotoSelector
+                image={profilePhoto}
+                setImage={setProfilePhoto}
+              />
             </div>
             <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
               <Input
