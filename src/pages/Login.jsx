@@ -1,14 +1,74 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/Input";
+import { validateEmail } from "../util/validation";
+import toast from "react-hot-toast";
+import axiosConfig from "../util/axiosConfig";
+import { API_ENDPOINTS } from "../util/apiEndpoints";
+import { AppContext } from "../context/AppContext";
+import { LoaderCircle } from "lucide-react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const { setUser } = useContext(AppContext);
 
   const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // setIsLoading(true);
+
+    if (!validateEmail(email)) {
+      setError("Please Enter A Valid Email");
+      // setIsLoading(false);
+      return;
+    }
+
+    if (!password.trim()) {
+      setError("Please Enter Your Password");
+      return;
+    }
+
+    console.log(email, password);
+
+    setError("");
+
+    //login api call
+    try {
+      const response = await axiosConfig.post(API_ENDPOINTS.LOGIN, {
+        email,
+        password,
+      });
+      const { token, user } = response.data;
+      if (token) {
+        localStorage.setItem("token", token);
+        setUser(user);
+        navigate("/dashboard");
+      }
+      if (response.status === 200) {
+        toast.success("Login Succesful");
+        // navigate("/dashboard");
+      }
+    } catch (err) {
+      console.log("Something went wrong", err);
+      toast.error("Login Failed. Please try again");
+      const error = err.response?.data || { message: "Login Failed" };
+      setError(err.message);
+
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        console.error("Login error:", error);
+        setError(error.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="h-screen w-full relative flex items-center justify-center overflow-hidden">
@@ -29,7 +89,7 @@ const Login = () => {
             Start tracking your spending by joining with us
           </p>
 
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="flex justify-center mb-6">
               {/* Profile Image */}
             </div>
@@ -52,19 +112,23 @@ const Login = () => {
                 />
 
                 <div>
-                  {error && (
-                    <p className="text-red-800 text-sm text-center bg-red-100 p-2 rounded">
-                      {error}
-                    </p>
-                  )}
+                  <div className="my-2.5">
+                    {error && (
+                      <p className="text-red-800 text-sm text-center bg-red-100 p-2 rounded">
+                        {error}
+                      </p>
+                    )}
+                  </div>
 
                   <button
-                    className="rounded-md bg-indigo-800 w-full py-3 text-lg font-medium text-white hover:bg-indigo-900 transition duration-300"
+                    disabled={isLoading}
+                    className={`rounded-md bg-indigo-800 w-full py-3 text-lg font-medium text-white hover:bg-indigo-900 transition duration-300 flex justify-center items-center ${
+                      isLoading ? "cursor-not-allowed opacity-60" : ""
+                    }`}
                     type="submit"
                   >
-                    <Link to="/dashboard">
-                      Login
-                    </Link>
+                    {isLoading ? <>
+                    <LoaderCircle className="animate-spin w-5 h-5"/>"Logging In..."</> : "Login"}
                   </button>
                   <p className="text-sm text-slate-800 text-center mt-6 gap-2 flex justify-center items-center">
                     Don't have an account ?
