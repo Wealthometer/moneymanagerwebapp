@@ -18,13 +18,14 @@ const uploadProfileImage = async (image) => {
             throw new Error(`Cloudinary Upload Failed: ${errorData.error.message}`);
         }
 
-        const data = await response.json(); 
-        console.log(`Image Uploaded Succesfully` + data)
+        const data = await response.json();
+        console.log("Image Uploaded Successfully:", data.secure_url);
+
+        return data.secure_url; 
     } catch (error) {
         console.error("Error uploading image:", error);
         throw error;
     }
-
-}
+};
 
 export default uploadProfileImage;
