@@ -1,25 +1,26 @@
 import { useContext } from "react";
 import Menubar from "./Menubar";
 import { AppContext } from "../context/AppContext";
+import Sidebar from "./Sidebar"
 
-const Dashboard = () => {
+const Dashboard = ({children, activeMenu}) => {
 
     const {user} = useContext(AppContext)
 
     return (
         <div>
-            <Menubar  />
+            <Menubar activeMenu={activeMenu} />
 
             {
                 user && (
                     <div className="flex">
                         <div className="max-[1080px]:hidden">
                             {/* Sidebar Component */}
-                            <div className="text-md text-purple-800">Sidebar</div>
+                            <Sidebar activeMenu={activeMenu} />
                         </div>
 
                         <div className="grow mx-5">
-                            Right
+                            {children}
                         </div>
                     </div>
                 )
