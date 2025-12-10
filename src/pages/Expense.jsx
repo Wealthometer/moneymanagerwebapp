@@ -1,6 +1,12 @@
+import Dashboard from "../components/Dashboard"
+import { useUser } from "../hooks/useUser"
+
 const Expense = () => {
+  useUser();
   return( 
-  <div className="text-3xl font-bold underline"> Expense Page </div>
+  <Dashboard activeMenu="Expense">
+      <div className=""> Expense Page </div>
+    </Dashboard>
   )
 }
 
