@@ -1,6 +1,12 @@
+import Dashboard from "../components/Dashboard"
+import { useUser } from "../hooks/useUser";
+
 const Income = () => {
+  useUser();
   return( 
-  <div className="text-3xl font-bold underline"> Income Page </div>
+  <Dashboard activeMenu="Income">
+      <div className=""> Income Page </div>
+    </Dashboard>
   )
 }
 
