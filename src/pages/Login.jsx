@@ -82,11 +82,11 @@ const Login = () => {
       <div className="relative z-10 w-full max-w-lg px-6">
         <div className="bg-white bg-opacity-95 backdrop-blur-sm rounded-lg shadow-2xl p-8 max-h-[90vh] overflow-y-auto">
           <h3 className="text-2xl font-semibold text-black text-center mb-2">
-            Create An Account
+            Welcome Back
           </h3>
 
           <p className="text-sm text-slate-700 text-center mb-8">
-            Start tracking your spending by joining with us
+            Log in to continue tracking your spending
           </p>
 
           <form className="space-y-4" onSubmit={handleSubmit}>
@@ -127,8 +127,14 @@ const Login = () => {
                     }`}
                     type="submit"
                   >
-                    {isLoading ? <>
-                    <LoaderCircle className="animate-spin w-5 h-5"/>"Logging In..."</> : "Login"}
+                    {isLoading ? (
+                      <>
+                        <LoaderCircle className="animate-spin w-5 h-5" />
+                        "Logging In..."
+                      </>
+                    ) : (
+                      "Login"
+                    )}
                   </button>
                   <p className="text-sm text-slate-800 text-center mt-6 gap-2 flex justify-center items-center">
                     Don't have an account ?
