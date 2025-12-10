@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "./Input";
 import EmojiPickerPopup from "./EmojiPickerPopup";
+import { LoaderCircle } from "lucide-react";
 
-const AddCategoryForm = ({ onAddCategory }) => {
+const AddCategoryForm = ({ onAddCategory, initialCategoryData, isEditing }) => {
   const [category, setCategory] = useState({
     name: "",
     type: "income",
     icon: "",
   });
+
+  const [loading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (isEditing && initialCategoryData) {
+      setCategory(initialCategoryData);
+    } else {
+      setCategory({ name: "", type: "income", icon: "" });
+    }
+  }, [isEditing, initialCategoryData]);
 
   const categoryTypeOptions = [
     { value: "income", label: "Income" },
@@ -18,9 +29,14 @@ const AddCategoryForm = ({ onAddCategory }) => {
     setCategory({ ...category, [key]: value });
   };
 
-  const handleSubmit = () => {
-    onAddCategory(category)
-  }
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    try {
+      await onAddCategory(category);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="p-4">
@@ -47,9 +63,17 @@ const AddCategoryForm = ({ onAddCategory }) => {
       <button
         type="button"
         onClick={handleSubmit}
-        className="add-btn add-btn-fill"
+        disabled={loading}
+        className="add-btn add-btn-fill flex items-center justify-center bg-purple-700 text-white py-2 px-3 rounded-md gap-1"
       >
-        Add Category
+        {loading ? (
+          <>
+            <LoaderCircle className="w-4 h-4 animate-spin" />
+            {isEditing ? "Updating..." : "Adding..."}
+          </>
+        ) : (
+          <>{isEditing ? "Update Category" : "Add Category"}</>
+        )}
       </button>
     </div>
   );
