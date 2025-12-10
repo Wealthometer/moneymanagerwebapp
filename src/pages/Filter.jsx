@@ -1,7 +1,13 @@
-const Filter = () => {
-  return( 
-  <div className="text-3xl font-bold underline"> Filter Page </div>
-  )
-}
+import Dashboard from "../components/Dashboard";
+import { useUser } from "../hooks/useUser";
 
-export default Filter
+const Filter = () => {
+  useUser();
+  return (
+    <Dashboard activeMenu="Filters">
+      <div className=""> Filter Page </div>
+    </Dashboard>
+  );
+};
+
+export default Filter;
