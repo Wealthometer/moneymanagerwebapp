@@ -1,9 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
 @import "tailwindcss";
 
-
 body {
-  font-family: 'Outfit';
+  font-family: "Outfit";
   background-color: #fcfbfc;
   overflow-x: hidden;
+}
+
+.card-btn {
+  /* Layout and Spacing */
+  @apply flex items-center justify-center gap-1.5 
+           px-3 py-1.5 rounded-lg text-sm font-medium 
+           whitespace-nowrap cursor-pointer transition-colors;
+
+  /* Colors (Matching the Download button style) */
+  @apply bg-white text-gray-700 border border-gray-300;
+
+  /* Hover State */
+  @apply hover:bg-gray-100;
+}
+
+.card-btn-primary {
+  /* Override colors for the primary look (Purple/Violet) */
+  @apply bg-violet-100 text-violet-800 border-violet-700;
+
+  /* Primary Hover State */
+  @apply hover:bg-violet-200;
 }
